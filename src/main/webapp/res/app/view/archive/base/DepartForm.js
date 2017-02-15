@@ -1,0 +1,49 @@
+Ext.define('sa.view.archive.base.DepartForm',{
+	extend:'Ext.window.Window',
+	xtype:'depart-form',
+	layout:'fit',
+	modal:true,
+	width:500,
+	height:450,
+	closable:true,
+	bind:{
+		title:'{title}'
+	},
+	items:{
+		xtype:'form',
+		reference:'form',
+		bodyPadding:10,
+		border:false,
+		layout:{
+			type:'vbox',
+			align:'stretch'
+		},
+		items:[{xtype:'textfield', fieldLabel:'商品编码', reference:'code', msgTarget:'side', bind:'{theDepart.code}'
+		},{
+			xtype:'textfield',
+			fieldLabel:'商品名称',
+			reference:'name',
+			msgTarget:'side',
+			bind:'{theDepart.name}'
+		},{
+			xtype:'textarea',
+			fieldLabel:'商品描述',
+			reference:'des',
+			msgTarget:'side',
+			bind:'{theDepart.des}'
+		}],
+		
+		buttons:[{
+			text:'保存',
+			handler:'onSaveClick'
+		},{
+			text:'取消',
+			handler:'onCancelClick'
+		}],
+		
+		listeners:{
+			close:'onCloseForm'
+		}
+		
+	}
+});

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sa.basic.dao.MenuDao">
+
+	<sql id="Base_Column_List">
+		NODEID,
+		PARENTID,
+		MYTEXT,
+		LOCATION,
+		ORDER_ID,
+		WINDOW,
+		FM,
+		W_TARGET,
+		ICON_GIF
+	</sql>
+	
+	
+	<select id="getMenuList" resultType="com.sa.basic.model.Sys_Menu" parameterType="Map">
+		select 
+			R.NODEID,
+			R.PARENTID, 
+			R.MYTEXT TEXT,
+			R.LOCATION,
+			R.ORDER_ID,
+			R.WINDOW URL,
+			R.FM,
+			R.W_TARGET,
+			R.ICON_GIF
+		from T_LEFT_LINSHI R WHERE R.PARENTID = #{parentid}
+	</select>
+	
+	<!-- 获取子菜单节点 -->
+	<select id="getMenuNodes" resultType="com.sa.basic.model.ExtNode" parameterType="Map">
+		select 
+			R.NODEID,
+			R.PARENTID,
+			R.MYTEXT TEXT,
+			R.LOCATION ID,
+			R.ORDER_ID,
+			R.WINDOW URL,
+			R.FM,
+			R.W_TARGET,
+			R.ICON_GIF,
+			S.MYTEXT PARENT_TEXT,
+			(SELECT COUNT(1) FROM T_LEFT_LINSHI  WHERE PARENTID = R.LOCATION) CHILD_COUNT
+		from T_LEFT_LINSHI R
+		LEFT JOIN T_LEFT_LINSHI S ON R.PARENTID = S.LOCATION
+		<where>
+			<if test="@Ognl@isNotBlank(parentid)">
+				R.PARENTID = #{parentid}
+			</if>
+		</where>
+		ORDER BY R.ORDER_ID
+	</select>
+	
+	
+</mapper>

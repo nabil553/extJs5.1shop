@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sa.sys.dao.UserDao">
+	<!--增加用户-->
+	<insert id="addUser" parameterType="Map">
+	  <selectKey keyProperty="sort" resultType="java.lang.Long" order="BEFORE">
+		 	SELECT MAX(SORT)+1 SORT FROM SA_USERS
+	  </selectKey>
+		INSERT INTO SA_USERS(
+			USER_ID,
+			USER_CODE,
+			USER_NAME,
+			USER_PWD,
+			PAY_PWD,
+			REAL_NAME,
+			USER_PHONE,
+			USER_EMAIL,
+			USER_GRADE,
+			USER_TYPE,
+			USER_PROVINCE,
+			ROLE_NAME,
+			USER_CITY,
+			USER_COUNTY,
+			USER_ADDR,
+			RECOMMEND,
+			START_TIME,
+			STATE,
+			MONEY_WALLET,
+			SHOP_SCORE,
+			BLOCK_SCORE,
+			DEAL_SCORE,
+			EXPEND_SCORE,
+			SELF_LINK,
+			ID_NUMBER,
+			BANK_CARD,
+			BANK_NAME,
+			BANK_ADDR,
+			SORT
+		)
+		VALUE(
+			#{userId, jdbcType=VARCHAR },
+			#{userCode, jdbcType=VARCHAR },
+			#{userName, jdbcType=VARCHAR },
+			#{userPwd, jdbcType=VARCHAR },
+			#{payPwd, jdbcType=VARCHAR },
+			#{realName, jdbcType=VARCHAR },
+			#{userPhone, jdbcType=VARCHAR },
+			#{userEmail, jdbcType=VARCHAR },
+			#{userGrade, jdbcType=VARCHAR },
+			#{userType, jdbcType=VARCHAR },
+			#{userProvince, jdbcType=VARCHAR },
+			#{roleName, jdbcType=VARCHAR },
+			#{userCity, jdbcType=VARCHAR },
+			#{userCounty, jdbcType=VARCHAR },
+			#{userAddr, jdbcType=VARCHAR },
+			#{recommend, jdbcType=VARCHAR },
+			#{startTime, jdbcType=VARCHAR },
+			#{state, jdbcType=VARCHAR },
+			#{moneyWallet, jdbcType=VARCHAR },
+			#{shopScore, jdbcType=VARCHAR },
+			#{blockScore, jdbcType=VARCHAR },
+			#{dealScore, jdbcType=VARCHAR },
+			#{expendScore, jdbcType=VARCHAR },
+			#{selfLink, jdbcType=VARCHAR },
+			#{idNumber, jdbcType=VARCHAR },
+			#{bankCard, jdbcType=VARCHAR },
+			#{bankName, jdbcType=VARCHAR },
+			#{bankAddr, jdbcType=VARCHAR },
+			<if test="@Ognl@isNotBlank(sort)">
+				#{sort,  jdbcType=NUMERIC  }
+			</if>
+			<if test="@Ognl@isBlank(sort)">
+				0
+			</if>
+		)
+	</insert>
+
+	
+	<!--查询用户列表，可以根据条件查询-->
+	<select id="getUsers" resultType="com.sa.sys.model.User">
+		select 
+			R.USER_ID,
+			R.USER_CODE,
+			R.USER_NAME,
+			R.USER_PWD,
+			R.PAY_PWD,
+			R.REAL_NAME,
+			R.USER_PHONE,
+			R.USER_EMAIL,
+			R.USER_GRADE,
+			R.USER_TYPE,
+			R.USER_PROVINCE,
+			R.ROLE_NAME,
+			R.USER_CITY,
+			R.USER_COUNTY,
+			R.USER_ADDR,
+			R.RECOMMEND,
+			R.START_TIME,
+			R.STATE,
+			R.MONEY_WALLET,
+			R.SHOP_SCORE,
+			R.BLOCK_SCORE,
+			R.DEAL_SCORE,
+			R.EXPEND_SCORE,
+			R.SELF_LINK,
+			R.ID_NUMBER,
+			R.BANK_CARD,
+			R.BANK_NAME,
+			R.BANK_ADDR,
+			R.SORT
+	  from SA_USERS R
+	</select>
+	<!---根据用户名和密码查询用户对象-->
+	<select id="getLoginUser" resultType="com.sa.sys.model.User">
+		select 
+			R.USER_ID,
+			R.USER_CODE,
+			R.USER_NAME,
+			R.USER_PWD,
+			R.PAY_PWD,
+			R.REAL_NAME,
+			R.USER_PHONE,
+			R.USER_EMAIL,
+			R.USER_GRADE,
+			R.USER_TYPE,
+			R.USER_PROVINCE,
+			R.ROLE_NAME,
+			R.USER_CITY,
+			R.USER_COUNTY,
+			R.USER_ADDR,
+			R.RECOMMEND,
+			R.START_TIME,
+			R.STATE,
+			R.MONEY_WALLET,
+			R.SHOP_SCORE,
+			R.BLOCK_SCORE,
+			R.DEAL_SCORE,
+			R.EXPEND_SCORE,
+			R.SELF_LINK,
+			R.ID_NUMBER,
+			R.BANK_CARD,
+			R.BANK_NAME,
+			R.BANK_ADDR,
+			R.SORT
+		  from SA_USERS R
+		  <where>
+		  	R.USER_NAME=#{userName} AND R.USER_PWD = #{userPwd}
+		  </where>
+	</select>
+	
+</mapper>
