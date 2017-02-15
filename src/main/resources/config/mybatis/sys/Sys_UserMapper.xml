@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sa.sys.dao.Sys_UserDao">
+	<!--增加用户-->
+	<insert id="addSys_User" parameterType="Map">
+	  <selectKey keyProperty="sort" resultType="java.lang.Long" order="BEFORE">
+		 	SELECT MAX(SORT)+1 SORT FROM SA_ADMIN
+	  </selectKey>
+		INSERT INTO SA_ADMIN(
+			ADMIN_ID,
+			ADMIN_NAME,
+			ADMIN_PWD,
+			STATE,
+			ROLE_NAME,
+			SORT
+		)
+		VALUE(
+			#{adminId, jdbcType=VARCHAR },
+			#{adminName, jdbcType=VARCHAR },
+			#{adminPwd, jdbcType=VARCHAR },
+			#{state, jdbcType=VARCHAR },
+			#{roleName, jdbcType=VARCHAR },
+			<if test="sort">
+				#{sort,  jdbcType=NUMERIC  }
+			</if>
+			<if test="@Ognl@isBlank(sort)">
+				0
+			</if>
+		)
+	</insert>
+
+	<!--插入用户角色关系-->
+	<insert id="setSys_UserRoles"  parameterType="Map">
+		INSERT INTO USERROLE(
+			UR_ID,
+			USER_ID,
+			ROLE_ID,
+			SORT
+		)
+			VALUE(
+			#{urId, jdbcType=VARCHAR },
+			#{userId, jdbcType=VARCHAR },
+			#{roleId, jdbcType=VARCHAR }
+			)
+	</insert>
+	
+	<!--查询用户列表，可以根据条件查询-->
+	<select id="getSys_Users" resultType="com.sa.sys.model.Sys_User">
+		select 
+			R.ADMIN_ID,
+			R.ADMIN_NAME,
+			R.ADMIN_PWD,
+			R.STATE,
+			R.ROLE_NAME,
+			R.SORT
+	  from SA_ADMIN R
+	</select>
+	<!---根据用户名和密码查询用户对象-->
+	<select id="getLoginSys_User" resultType="com.sa.sys.model.Sys_User">
+			select 
+				R.ADMIN_ID,
+				R.ADMIN_NAME,
+				R.ADMIN_PWD,
+				R.STATE,
+				R.ROLE_NAME,
+				R.SORT
+		  from SA_ADMIN R
+		  <where>
+		  	R.ADMIN_NAME=#{adminName} AND R.ADMIN_PWD = #{adminPwd}
+		  </where>
+	</select>
+	
+	<!---根据用户登录名查询用户对象-->
+	<select id="getSys_UserByAdminName" resultType="com.sa.sys.model.Sys_User">
+		 	select 
+				R.ADMIN_ID,
+				R.ADMIN_NAME,
+				R.ADMIN_PWD,
+				R.STATE,
+				R.ROLE_NAME,
+				R.SORT
+		  from SA_ADMIN R
+		  <where>
+		  	R.ADMIN_NAME=#{adminName}
+		  </where>
+	</select>
+	<!--根据用户的userid获得用户的权限列表-->
+	<select id="getFunStrsBySys_UserId"  resultType="String">
+	SELECT
+		menu.FUN_STR
+   FROM
+		userrole
+		INNER JOIN acl ON acl.ROLE_ID = userrole.ROLE_ID AND userrole.ADMIN_ID=#{adminId}
+		INNER JOIN menu ON menu.MENU_ID = acl.MENU_ID AND  menu.FUN_STR!=""
+		 and menu.FUN_STR is Not null
+	</select>
+</mapper>

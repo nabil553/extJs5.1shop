@@ -1,0 +1,18 @@
+Ext.define('sa.view.archive.base.DepartModel',{
+	extend:'Ext.app.ViewModel',
+	alias:'viewmodel.base-depart',
+	requires:['sa.model.Depart'],
+	data:{
+		name:'sa'
+	},
+	stores:{
+		departStore:{
+			model:'Depart',
+			pageSize:20,
+			autoLaod:false,
+			remoteFilter:true,
+			remoteSort:true,
+			session:true
+		}
+	}
+});

@@ -1,0 +1,115 @@
+[
+  {
+    text: '基础设置管理',
+    id: 'panels',
+    expanded: true,
+    children: [
+      {
+        id: 'basic-panels',
+        text: '餐桌类别管理',
+        leaf: true
+      },
+      {
+        id: 'framed-panels',
+        text: '菜品分类管理',
+        leaf: true
+      }
+    ]
+  },
+  {
+    text: '订单管理',
+    id: 'grids',
+    expanded: false,
+    children: [
+      {
+        id: 'array-grid',
+        text: '确认订单/押金管理',
+        leaf: true
+      },
+      {
+        id: 'grouped-grid',
+        text: '已上/未上菜单管理',
+        leaf: true
+      },
+      {
+        id: 'locking-grid',
+        text: '结算管理(第三方支付)',
+        leaf: true
+      },
+      {
+        id: 'grouped-header-grid',
+        text: '寄存菜单管理',
+        leaf: true
+      }
+    ]
+  },
+  {
+    text: '外卖订单管理',
+    id: 'data-binding',
+    expanded: false,
+    children: [
+      {
+        id: 'binding-hello-world',
+        text: '开启/关闭外卖功能',
+        leaf: true
+      },
+      {
+        id: 'binding-dynamic',
+        text: '接单/配送管理',
+        leaf: true
+      },
+      {
+        id: 'binding-two-way',
+        text: '支付管理',
+        leaf: true
+      },
+      {
+        id: 'binding-formulas',
+        text: '订单完成/评价管理',
+        leaf: true
+      }
+    ]
+  },
+  {
+    text: '会员信息管理',
+    id: 'trees',
+    expanded: false,
+    children: [
+      {
+        id: 'basic-trees',
+        text: '会员个人信息管理',
+        leaf: true
+      },
+      {
+        id: 'tree-reorder',
+        text: '会员积分/优惠券管理',
+        leaf: true
+      },
+      {
+        id: 'tree-grid',
+        text: '会员订单明细管理',
+        leaf: true
+      },
+      {
+        id: 'tree-two',
+        text: 'Two Trees',
+        leaf: true
+      }
+    ]
+  },
+  {
+  text: '统计查询管理',  
+        id: 'data-binding',  
+        expanded: false,  
+        children: [{  
+            id: 'binding-hello-world',  
+            text: '订单查询管理',  
+            leaf: true  
+          },{  
+            id: 'binding-dynamic',  
+            text: '客流量统计分析',  
+            leaf: true  
+          }
+        ]
+     }
+]

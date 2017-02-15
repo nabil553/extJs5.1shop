@@ -1,0 +1,29 @@
+Ext.define('sa.view.archive.base.DepartController',{
+	extend:'Ext.app.ViewController',
+	alias:'controller.base-depart',
+	onAfterLayout:function(){
+		this.getViewModel().getStore('departStore').load();
+	},
+	onNew:function(){
+		this.displayForm(null);
+	},
+	onEdit:function(button){
+		this.displayForm(button.getWidgetRecord());
+	},
+	displayForm:function(record){
+		var view = this.getView();//得到列表页
+		this.isEdit=!!record;
+		this.dialog=view.add({
+			xtype:'depart-form',
+			session:true,
+			viewModel:{
+				data:{title:record ? '修改数据':'添加数据'},
+				links:{theDepart:record||{
+					create:true,
+					type:'Depart'
+				}}
+			}
+		});
+		this.dialog.show();
+	}
+});

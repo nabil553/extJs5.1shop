@@ -1,0 +1,21 @@
+#app-header{  
+    background-color:#2a3f5d;
+    border-bottom:2px solid #010914  
+}  
+#app-header-title{  
+    padding:15px 0 10px 0;  
+    color:#fff;  
+    font-size:28px;  
+    font-weight:500;
+    font-family:'楷体';
+    letter-spacing: 0px;
+}  
+#app-header-logo{
+	margin:0 0 0 20px; 
+	padding:0 0 0 40px;
+    width:30px;  
+    height:25px;  
+    background:url(images/logo.png) no-repeat center 4px  
+}
+.app-header-menu{background-image:url(images/options.png);width:22px;height:22px}
+#app-admin{color:#FFFFFF; font-size:18px; font-family:'楷体';font-weight:500}
